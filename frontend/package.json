@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "autoprefixer": "^10.4.7",
+    "http-server": "^14.1.1",
+    "concurrently": "^7.2.1",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.0"
+  },
+  "scripts": {
+    "watch": "npx tailwindcss -i ./app.css -o ./static/css/app.css --watch",
+    "serve": "http-server .",
+    "dev": "concurrently \"npm run watch\" \"npm run serve\""
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.2"
+  }
+}
