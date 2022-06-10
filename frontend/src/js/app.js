@@ -3,7 +3,7 @@ var board;
 
 var PostBoard = async function (e) {
     Swal.fire({
-        imageUrl: loadingPath,
+        imageUrl: config.url+"/"+config.loadingImg,
         title: "Checking board...",
         allowOutsideClick: false,
         allowEscapeKey: false,
@@ -55,9 +55,9 @@ var PostBoard = async function (e) {
     }
 };
 
-async function getBoard() {
+window.getBoard = async function getBoard() {
     Swal.fire({
-        imageUrl: loadingPath,
+        imageUrl: config.url+"/"+config.loadingImg,
         title: "Fetching board...",
         allowOutsideClick: false,
         allowEscapeKey: false,
@@ -65,8 +65,8 @@ async function getBoard() {
         showConfirmButton: false,
     });
 
-    var key = document.getElementById("key");
-    var button = document.getElementById("button");
+    var key = window.document.getElementById("key");
+    var button = window.document.getElementById("button");
 
     var id = key.value;
     var fullUrl = new URL(config.apiUrl + "/boards");
@@ -77,7 +77,7 @@ async function getBoard() {
 
     generatePrize()
 
-    masterBoard = document.getElementById("master_board");
+    var masterBoard = window.document.getElementById("master_board");
     masterBoard.innerHTML = "";
 
     board.state.forEach((element, col) => {
@@ -86,7 +86,7 @@ async function getBoard() {
                 var prize = board.prize[element2];
                 generatePiece(col, row, prize.path, true);
             } else {
-                generatePiece(col, row, defaultPath, false);
+                generatePiece(col, row, config.defaultImg, false);
             }
         });
     });
@@ -105,18 +105,18 @@ async function getBoard() {
 }
 
 function generatePrize() {
-    var dom = document.getElementById("master_prize")
+    var dom = window.document.getElementById("master_prize")
     dom.innerHTML = ""
 
     board.prize.forEach(data => {
-        var prizeElem = document.createElement("div")
+        var prizeElem = window.document.createElement("div")
         prizeElem.className = "flex justify-between p-6 my-2 max-w-sm  rounded-lg border shadow-md hover:bg-gray-700 bg-gray-800 border-gray-700"
 
-        var img = document.createElement("img")
+        var img = window.document.createElement("img")
         img.src = config.url+'/'+data.path
         img.className = "max-h-6 border-white"
 
-        var text = document.createElement("div")
+        var text = window.document.createElement("div")
         text.className = "px-1 text-white"
         text.innerHTML = data.name
 
@@ -135,7 +135,7 @@ function printBoard() {
 function generatePiece(col, row, src, scratch) {
     let ncol = `col_${col}`;
     let nrow = `row_${row}`;
-    var dom = document.createElement("div");
+    var dom = window.document.createElement("div");
 
     var className =
         "flex justify-center p-6 max-w-sm rounded-lg border shadow-md hover:bg-gray-700 bg-gray-800 border-gray-700";
@@ -147,17 +147,17 @@ function generatePiece(col, row, src, scratch) {
     dom.className = className;
     dom.id = `${ncol}-${nrow}`;
 
-    var img = document.createElement("img");
+    var img = window.document.createElement("img");
     img.className = "h-24";
     img.src = src;
 
     dom.appendChild(img);
     dom.addEventListener('click', PostBoard)
-    document.getElementById("master_board").appendChild(dom);
+    window.document.getElementById("master_board").appendChild(dom);
 }
 
 function showPrize() {
-    prize = board.prize[board.obtained_prize]
+    var prize = board.prize[board.obtained_prize]
     Swal.fire({
         imageUrl: config.url+'/'+prize.path,
         title: "Congratulation!",
@@ -171,7 +171,7 @@ function showPrize() {
 }
 
 function cleanup() {
-    const elements = document.getElementsByClassName("unscratched");
+    const elements = window.document.getElementsByClassName("unscratched");
     for (var i = 0; i < elements.length; i++) {
         elements[i].removeEventListener('click', PostBoard);
     }

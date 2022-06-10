@@ -1,8 +1,8 @@
 const config = {
     apiUrl: "http://localhost:8000",
     url: "http://localhost:8080",
-    defaultPath: "http://localhost:8080/static/images/compawny_logo.png",
-    loadingPath: "http://localhost:8080/static/images/server_logo.gif",
+    defaultImg: "http://localhost:8080/static/images/compawny_logo.png",
+    loadingImg: "http://localhost:8080/static/images/server_logo.gif",
 
 }
 export default config
