@@ -8,7 +8,7 @@ import (
 
 type Board struct {
 	Id            primitive.ObjectID `bson:"_id" json:"id"`
-	Rigged        bool               `bson:"rigged" json:"rigged"`
+	Rigged        int                `bson:"rigged" json:"rigged"`
 	State         [][]int            `bson:"state" json:"state"`
 	Size          int                `bson:"size" json:"size"`
 	Prize         []Prize            `bson:"prize" json:"prize"`
@@ -31,9 +31,17 @@ func (b *Board) GetPiece(col, row int) Prize {
 		randArr = append(randArr, i)
 	}
 
-	if b.Rigged {
+	if b.Rigged == 1 {
 		for i := 0; i < 100; i++ {
 			randArr = append(randArr, 0)
+		}
+	}
+
+	if b.Rigged == 2 {
+		for i := 1; i < b.Size; i++ {
+			for j := 0; j < 50; j++ {
+				randArr = append(randArr, i)
+			}
 		}
 	}
 
