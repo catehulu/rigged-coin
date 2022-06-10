@@ -1,6 +1,4 @@
-const url = "http://localhost:8080";
-const defaultPath = "/static/images/compawny_logo.png";
-const loadingPath = "/static/images/server_logo.gif";
+import config from "./config.js";
 var board;
 
 var PostBoard = async function (e) {
@@ -34,7 +32,7 @@ var PostBoard = async function (e) {
         row
     }
 
-    var fullUrl = new URL(url + "/boards");
+    var fullUrl = new URL(config.apiUrl + "/boards");
 
     var response = await fetch(fullUrl, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -51,7 +49,7 @@ var PostBoard = async function (e) {
         showPrize()
     } else {
         var img = element.children[0]
-        img.src = resData.path
+        img.src = config.url+'/'+resData.path
         element.removeEventListener('click', PostBoard)
         Swal.close()
     }
@@ -71,7 +69,7 @@ async function getBoard() {
     var button = document.getElementById("button");
 
     var id = key.value;
-    var fullUrl = new URL(url + "/boards");
+    var fullUrl = new URL(config.apiUrl + "/boards");
     fullUrl.search = new URLSearchParams({ id }).toString();
     var response = await fetch(fullUrl);
     var json = await response.json();
@@ -115,7 +113,7 @@ function generatePrize() {
         prizeElem.className = "flex justify-between p-6 my-2 max-w-sm  rounded-lg border shadow-md hover:bg-gray-700 bg-gray-800 border-gray-700"
 
         var img = document.createElement("img")
-        img.src = data.path
+        img.src = config.url+'/'+data.path
         img.className = "max-h-6 border-white"
 
         var text = document.createElement("div")
@@ -161,7 +159,7 @@ function generatePiece(col, row, src, scratch) {
 function showPrize() {
     prize = board.prize[board.obtained_prize]
     Swal.fire({
-        imageUrl: prize.path,
+        imageUrl: config.url+'/'+prize.path,
         title: "Congratulation!",
         text: "You got " + prize.name,
         allowOutsideClick: false,
