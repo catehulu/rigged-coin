@@ -63,7 +63,6 @@ func (m *Repository) PostBoards(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			log.Print("Error")
 			w.Write([]byte("An error occured"))
-			return
 		}
 		return
 	}
@@ -113,7 +112,6 @@ func (m *Repository) PostBoards(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusInternalServerError)
 			log.Print("Error")
 			w.Write([]byte("An error occured"))
-			return
 		}
 		return
 	}
@@ -163,8 +161,8 @@ func (m *Repository) GetBoards(w http.ResponseWriter, r *http.Request) {
 			log.Print("Error")
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("An error occured"))
-			return
 		}
+		return
 	}
 
 	res := jsonResponse{
